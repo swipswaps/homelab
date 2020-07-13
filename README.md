@@ -2,7 +2,7 @@
 
 ## Overview
 
-This (WIP) page describes a home lab environment for evaluation and testing of various products. Basic setup & config of both supporting infrastructure and additional products is documented (mostly so I remember how I did stuff). 
+This (WIP) page describes a home lab environment for evaluation and testing of various products. Basic setup & config of both supporting infrastructure and additional products is documented here (mostly so I remember how I did stuff). 
 
 ## Goals
 - A stable base of hypervisors & container hosts on physical hardware, on which further virtualized or containerized product testing & evaluations can be done (quickly) without impact to the base lab.
@@ -15,7 +15,7 @@ This (WIP) page describes a home lab environment for evaluation and testing of v
 ## Software
 - 3-node [Proxmox VE](https://www.proxmox.com/) cluster for KVM based virtual machines and LXC containers.
 - 4-node Raspberry Pi [K3s](https://k3s.io/) / [Ubuntu Server](https://ubuntu.com/download/server) cluster for ARM-compatible containerized workloads
-- Lots of [Ansible](https://www.ansible.com/) for config management
+- Lots of [Ansible](https://www.ansible.com/) for automation of provisioning and configuration
 
 ## Gear / Roles
 - Servers 
@@ -66,48 +66,49 @@ Proxmox configuration requires installation of [Proxmox VE](https://www.proxmox.
 ## Metrics, Monitoring & Logging
 - Prometheus / Grafana
 - UPS power status & consumption monitoring
-- ELK? Logzio?
+- ELK - Logzio?
 - UptimeRobot for remote network monitoring
 
-## Repo Structure
-
-- Additional Lab Provisioning
-    - proxmox-templates
-    - AD DCs, WAC, SCVMM VMs
-    - Nested Hyper-V VMs
-    - Nested CloudStack VMs
-    - K8s VMs
-    - GitLab CE (Turnkey)
-
-- Application Configs
-    - Google DDNS Updater
-    - OpenDNS Updater
-    - Unifi controller
 
 ## Proxmox VM Templates
 
-VM deployments based on a [template](https://pve.proxmox.com/wiki/VM_Templates_and_Clones) are much faster than running through a new install. The following repos use Ansible to automate Proxmox template creation (and OS / package updates) for my most frequently used VM operating systems.
+VM deployments based on a [template](https://pve.proxmox.com/wiki/VM_Templates_and_Clones) are much faster than running through a new install. The following repos use Ansible to create Proxmox template images (and handle OS / package updates) for my most frequently used VM operating systems. These templates are used for later infrastructure provisioning.
 
 - Windows Server 2019: https://github.com/clayshek/ans-pve-win-templ 
 - Ubuntu Server 20.04: 
 
-## Apps Deployed
-- Microsoft Windows Server Lab:
-  - Active Directory Domain Controllers (Proxmox VMs)
-  - Microsoft Hyper-V Cluster (Proxmox VMs)
-  - System Center Virtual Machine Manager (Proxmox VM)
-  - Windows Admin Center (Proxmox VM)
-- Apache CloudStack (Proxmox VMs)
-- Kubernetes cluster, incl Windows worker node (Proxmox VMs)
-- GitLab ([Proxmox Turnkey Linux Container](https://www.turnkeylinux.org/gitlab))
-- InfoBlox Eval (Proxmox VM)
-- [Caddy](https://caddyserver.com/)-based Lab Dashboard / Portal (K3s container)
-- Dynamic DNS Updaters for Google & OpenDNS (K3s container)
-- Unifi Network Controller (K3s container)
-- Prometheus (K3s container)
-- Grafana (Proxmox VM)
-- Consul (K3s containers)
-- APC UPS Monitor (K3s container)
+## Lab Environment & Deployed Apps
+
+### Microsoft Windows Server Lab:
+- 2x Active Directory Domain Controllers (Proxmox VMs)
+- 4-node Microsoft Hyper-V Cluster (Proxmox VMs)
+- System Center Virtual Machine Manager (Proxmox VM)
+- Windows Admin Center (Proxmox VM)
+
+The base VMs for the Windows Server lab are provisioned (from the [Server 2019 template](https://github.com/clayshek/ans-pve-win-templ) above), using https://github.com/clayshek/ans-pve-win-provision. 
+Once online, role assignment and final configuration is done using https://github.com/clayshek/ansible-lab-config 
+
+### Apache CloudStack (Proxmox VMs)
+
+### Kubernetes cluster, incl Windows worker node (Proxmox VMs)
+
+### GitLab ([Proxmox Turnkey Linux Container](https://www.turnkeylinux.org/gitlab))
+
+### InfoBlox Eval (Proxmox VM)
+
+### [Caddy](https://caddyserver.com/)-based Lab Dashboard / Portal (K3s container)
+
+### Dynamic DNS Updaters for Google & OpenDNS (K3s container)
+
+### Unifi Network Controller (K3s container)
+
+### Prometheus (K3s container)
+
+### Grafana (Proxmox VM)
+
+### Consul (K3s containers)
+
+### APC UPS Monitor (K3s container)
 
 ## General To-Dos
 - [ ] Identify better NAS storage solution, potentially with iSCSI, also providing persistent K3s storage.
