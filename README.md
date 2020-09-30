@@ -2,11 +2,11 @@
 
 ## Overview
 
-This (WIP) page describes a home lab environment for evaluation and testing of various products. Basic setup & config of both supporting infrastructure and additional products is documented here (mostly so I remember how I did stuff). 
+This (WIP) page describes a home lab environment for evaluation and testing of various technologies. Basic provisioning & configuration of both supporting infrastructure and additional products is documented here - mostly so I remember how I did stuff. 
 
 ## Goals
-- A stable base of hypervisors & container hosts on physical hardware, on which further virtualized or containerized product testing & evaluations can be done (quickly) without impact to the base lab.
-- Simplicity (as much as possible anyway)
+- A stable base platform of hypervisors & container hosts on physical hardware, on which further virtualized or containerized products can be easily deployed without impact to the base platform.
+- Simplicity (as much as possible)
 - Raspberry Pis always on, power-hungry servers powered on as needed - so any "critical" roles (dynamic DNS updater, etc) should reside on a Raspberry Pi.
 - Totally separate lab env from home (don't want tinkering to impact "home" WiFi, DNS, storage, etc in any way).
 - Codified & documented config leading to trivial re/deployments.
@@ -114,5 +114,6 @@ Once online, role assignment and final configuration is done using https://githu
 - [ ] Identify better NAS storage solution, potentially with iSCSI, also providing persistent K3s storage.
 - [ ] Update [Proxmox config repo](https://github.com/clayshek/ansible-proxmox-config) to automate cluster creation/join & storage setup. Possibly change to auto playbook pull?
 - [ ] Check out the Ras Pi model 4
+- [ ] Maybe switch all this from Ansible to Salt
 
 ## Diagram & Photos
