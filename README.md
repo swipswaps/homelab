@@ -99,6 +99,7 @@ Once online, role assignment and final configuration is done using https://githu
 ### [Caddy](https://caddyserver.com/)-based Lab Dashboard / Portal (K3s container)
 
 ### Dynamic DNS Updaters for Google & OpenDNS (K3s container)
+- Google Domains dynamic DNS updater deployed onto Ras Pi K3s cluster to keep my dynamic home IP mapped to a custom FQDN. Deployed as documented here: https://github.com/clayshek/google-ddns-updater
 
 ### Unifi Network Controller (K3s container)
 
